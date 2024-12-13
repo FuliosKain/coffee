@@ -26,7 +26,8 @@ class CoffeeEspresso(QMainWindow):
         self.tableWidget.setHorizontalHeaderLabels(column_names)  # Установите заголовки столбцов
         self.tableWidget.setRowCount(0)
 
-        # Установите ширину столбцов 2 и 3
+        # Установите ширину столбцов
+        self.tableWidget.setColumnWidth(0, 30)  # Уменьшите ширину первого столбца (ID)
         self.tableWidget.setColumnWidth(1, 200)  # Увеличьте ширину второго столбца (Название)
         self.tableWidget.setColumnWidth(2, 150)  # Увеличьте ширину третьего столбца (Тип)
 
