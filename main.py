@@ -5,6 +5,7 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtWidgets import QMainWindow, QTableWidgetItem
 
+
 class CoffeeEspresso(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -15,9 +16,20 @@ class CoffeeEspresso(QMainWindow):
     def select_data(self):
         query = "SELECT * FROM coffee"  # Измените на нужный вам запрос
         res = self.connection.cursor().execute(query).fetchall()
+
+        # Определите названия столбцов
+        column_names = ["ID", "Название", "Тип", "Цена", "Объем", "Калории",
+                        "Производитель"]  # Замените на ваши названия
+
         # Заполним размеры таблицы
-        self.tableWidget.setColumnCount(5)  # Убедитесь, что количество столбцов соответствует вашей таблице
+        self.tableWidget.setColumnCount(len(column_names))  # Установите количество столбцов
+        self.tableWidget.setHorizontalHeaderLabels(column_names)  # Установите заголовки столбцов
         self.tableWidget.setRowCount(0)
+
+        # Установите ширину столбцов 2 и 3
+        self.tableWidget.setColumnWidth(1, 200)  # Увеличьте ширину второго столбца (Название)
+        self.tableWidget.setColumnWidth(2, 150)  # Увеличьте ширину третьего столбца (Тип)
+
         # Заполняем таблицу элементами
         for i, row in enumerate(res):
             self.tableWidget.setRowCount(self.tableWidget.rowCount() + 1)
@@ -26,6 +38,7 @@ class CoffeeEspresso(QMainWindow):
 
     def closeEvent(self, event):
         self.connection.close()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
